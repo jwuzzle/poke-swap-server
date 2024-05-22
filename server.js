@@ -5,6 +5,7 @@ const cors = require("cors");
 const pokeapiRoutes = require('./routes/pokeapi');
 const usersRoutes = require('./routes/users');
 const cardsRoutes = require('./routes/cards');
+const postsRoutes = require('./routes/posts');
 const knex = require("knex")(require("./knexfile"));
 const jwt = require("jsonwebtoken")
 const PORT = process.env.PORT || 9080
@@ -17,6 +18,7 @@ const jsonSecretKey = process.env.jsonSecretKey
 app.use('/', pokeapiRoutes);
 app.use('/users', usersRoutes);
 app.use('/cards', cardsRoutes);
+app.use('/posts', postsRoutes)
 
 app.use((req, res, next) => {
     if (req.url === "/signup" || req.url === "/login") {
