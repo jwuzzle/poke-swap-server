@@ -14,9 +14,11 @@ const getPostsByUserId = async (req, res) => {
 
 const getPostsByCardId = async (req, res) => {
     try { 
+        console.log("Received request");
+        const { cardId } = req.query;
         const allPostsByCardId = await knex("posts")
-        .where({card_id: req.body.id})
-        res.status(200).json({message: 'Card record(s) by specific card found', cards: allPostsByCardId});
+        .where({card_id: cardId})
+        res.status(200).json({/* message: 'Card record(s) by specific card found',  */cards: allPostsByCardId});
     } catch (error) {
         res.status(404).json({
             message: "Error fetching card records by card ID"
