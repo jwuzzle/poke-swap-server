@@ -3,12 +3,12 @@ const router = express.Router();
 const postsController = require('../controllers/posts-controller');
 
 router
-    .route('/card/:id')
+    .route('/:id')
     .get(postsController.getPostsByCardId)
     .post(postsController.createPosts);
 
     router
-    .route('/user/:user_id')
+    .route('/:user_id')
     .get(postsController.getPostsByUserId)
 
 
