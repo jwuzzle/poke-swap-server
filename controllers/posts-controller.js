@@ -4,6 +4,8 @@ const getPostsByUserId = async (req, res) => {
     try { 
         const allPostsByUserId = await knex("posts")
         .where({user_id: req.body.id})
+        .join("users", "posts.user_id", "=", "users.id")
+        .select("posts.*", "users.username");
         res.status(200).json({message: 'Card record(s) by user found', cards: allPostsByUserId});
     } catch (error) {
         res.status(404).json({
@@ -18,6 +20,8 @@ const getPostsByCardId = async (req, res) => {
         const { cardId } = req.query;
         const allPostsByCardId = await knex("posts")
         .where({card_id: cardId})
+        .join("users", "posts.user_id", "=", "users.id")
+        .select("posts.*", "users.username");
         res.status(200).json({/* message: 'Card record(s) by specific card found',  */cards: allPostsByCardId});
     } catch (error) {
         res.status(404).json({
