@@ -10,7 +10,7 @@ router
     .post(postsController.createPosts);
 
     router
-    .route('/:user_id')
+    .route('/user')
     .get(postsController.getPostsByUserId)
 
 

@@ -2,11 +2,13 @@ const knex = require("knex")(require("../knexfile"));
 
 const getPostsByUserId = async (req, res) => {
     try { 
+        const { userId } = req.query;
         const allPostsByUserId = await knex("posts")
-        .where({user_id: req.body.id})
+        .where({user_id: userId})
         .join("users", "posts.user_id", "=", "users.id")
-        .select("posts.*", "users.username");
-        res.status(200).json({message: 'Card record(s) by user found', cards: allPostsByUserId});
+        .join("cards", "posts.card_id", "=", "cards.id")
+        .select("posts.*", "users.username", "cards.name", "cards.api_card_id", "cards.set");
+        res.status(200).json(allPostsByUserId);
     } catch (error) {
         res.status(404).json({
             message: "Error fetching card records by user ID"
@@ -21,7 +23,8 @@ const getPostsByCardId = async (req, res) => {
         const allPostsByCardId = await knex("posts")
         .where({card_id: cardId})
         .join("users", "posts.user_id", "=", "users.id")
-        .select("posts.*", "users.username");
+        .join("cards", "posts.card_id", "=", "cards.id")
+        .select("posts.*", "users.username", "cards.name", "cards.api_card_id");
         res.status(200).json({/* message: 'Card record(s) by specific card found',  */cards: allPostsByCardId});
     } catch (error) {
         res.status(404).json({
