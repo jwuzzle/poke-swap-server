@@ -8,6 +8,7 @@ const cardsRoutes = require('./routes/cards');
 const postsRoutes = require('./routes/posts');
 const knex = require("knex")(require("./knexfile"));
 const jwt = require("jsonwebtoken")
+const bcrypt = require('bcrypt');
 const PORT = process.env.PORT || 9080
 
 
@@ -48,6 +49,39 @@ function getToken(req) {
     }
 }
 
+app.post("/login", async (req, res) => {
+    const { username, password } = req.body;
+    console.log(`Username: ${username}`);
+    console.log(`Password: ${password}`);
+ 
+    try {
+        const usersArray = await knex.select("*").from("users").where({ username }).first();
+        const hash = usersArray.password_hash;
+        const id = usersArray.id;
+        const first_name = usersArray.first_name;
+        const email = usersArray.email;
+        console.log(usersArray)
+        console.log(`Fetched hash from DB: ${hash}`);
+
+        bcrypt.compare(password, hash, (error, result) => {
+            if (error) throw error;
+            if (result) {
+                const token = jwt.sign({ username, id, first_name, email }, jsonSecretKey)
+                res.status(200).json( { token })
+            } else {
+                res.status(401).json({ error: "Invalid username or password" }); 
+            }
+        });
+    } catch (error) {
+        console.error("Error logging in:", error);
+        res.status(500).json({
+            token: "",
+            error: {
+                message: "Internal server error. Please try again later."
+            },
+        })
+    }
+})
 
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);
