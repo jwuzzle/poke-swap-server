@@ -34,7 +34,7 @@ const getPostsByCardId = async (req, res) => {
 };
 
 const createPosts = async (req, res) => {
-    const { user_id, card_id, status, condition, quantity, image_url } = req.body;
+    const { user_id, card_id, status, condition, quantity, front_image_url, back_image_url } = req.body;
 
     const result = await knex("posts").insert({
         user_id: user_id,
@@ -42,7 +42,8 @@ const createPosts = async (req, res) => {
         status: status || "available",
         condition: condition,
         quantity: quantity,
-        image_url: image_url
+        front_image_url: front_image_url,
+        back_image_url: back_image_url
     });
     res.status(201).json({message: 'Post record created successfully', post: result[0]});
     try { 
