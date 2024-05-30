@@ -54,9 +54,32 @@ const createPosts = async (req, res) => {
     }
 };
 
+const editPost = async (req, res) => {
+try {
+    const postRowUpdated = await knex("posts")
+    .where({ id: req.params.id })
+    .update(req.body);
+
+    if (postRowUpdated === 0) {
+        return res.status(404).json({
+            message: `Post with ID ${req.params.id} not found`
+        });
+    }
+
+    const updatedPost = await knex("posts")
+    .where({ id: req.params.id });
+    res.json(updatedPost[0]);
+
+} catch (error) {
+        res.status(500).json({message: `Unable to update post with ID ${req.params.id}: ${error}`
+    });
+    }
+};
+
 
 module.exports = {
     getPostsByUserId,
     getPostsByCardId,
-    createPosts
+    createPosts,
+    editPost
 };
