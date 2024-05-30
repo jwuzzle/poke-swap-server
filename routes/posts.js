@@ -8,7 +8,8 @@ router
 router
     .route('/:id')
     .post(postsController.createPosts)
-    .put(postsController.editPost);
+    .put(postsController.editPost)
+    .delete(postsController.deletePost);
 
 router
     .route('/user')
