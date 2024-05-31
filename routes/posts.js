@@ -15,5 +15,11 @@ router
     .route('/user')
     .get(postsController.getPostsByUserId)
 
+router
+    .route('/:id')
+    .post(postsController.createPosts)
+    .put(postsController.editPost)
+    .get(postsController.getSinglePostById);
+
 
 module.exports = router;
