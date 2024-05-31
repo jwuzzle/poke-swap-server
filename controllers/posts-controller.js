@@ -92,11 +92,29 @@ const getSinglePostById = async (req, res) => {
     }
 };
 
+const deletePost = async (req, res) => {
+    try {
+        const rowDeleted = await knex("posts")
+        .where({ id: req.params.id })
+        .delete();
+
+        if (rowDeleted === 0) {
+            return res.status(400).json({message: `Post with ID ${req.params.id} not found`});
+        }
+
+        res.sendStatus(204);
+
+    } catch (error) {
+        res.status(500).json({message: `Unable to delete post: ${error}`});
+    }
+};
+
 
 module.exports = {
     getPostsByUserId,
     getPostsByCardId,
     createPosts,
     editPost,
-    getSinglePostById
+    getSinglePostById,
+    deletePost
 };

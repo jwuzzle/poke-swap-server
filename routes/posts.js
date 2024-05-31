@@ -6,6 +6,12 @@ router
     .route('/').get(postsController.getPostsByCardId)
 
 router
+    .route('/:id')
+    .post(postsController.createPosts)
+    .put(postsController.editPost)
+    .delete(postsController.deletePost);
+
+router
     .route('/user')
     .get(postsController.getPostsByUserId)
 
