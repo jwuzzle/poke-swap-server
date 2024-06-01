@@ -1,4 +1,7 @@
 const axios = require('axios');
+require("dotenv").config();
+
+const apikey = process.env.pokeapikey;
 
 
 const fetchPokeapiData = async (name) => {
@@ -8,7 +11,7 @@ const fetchPokeapiData = async (name) => {
         const response = await axios.get(url, {
             headers: {
                 accept: 'application/json',
-                'X-Api-Key': 'efea9328-1f8a-4d03-b9e0-8c92622329c1'
+                'X-Api-Key': apikey
             },
             params: {
                 pageSize: 24,
@@ -28,7 +31,7 @@ const fetchPokeapiDataByName = async (name) => {
         const response = await axios.get(url, {
             headers: {
                 accept: 'application/json',
-                'X-Api-Key': 'efea9328-1f8a-4d03-b9e0-8c92622329c1'
+                'X-Api-Key': apikey
             },
             params: {
                 q: `name:"${name}"`
