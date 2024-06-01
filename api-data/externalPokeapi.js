@@ -14,7 +14,7 @@ const fetchPokeapiData = async (name) => {
                 'X-Api-Key': apikey
             },
             params: {
-                pageSize: 24,
+                pageSize: 12,
                 page: offset
             }
         })
