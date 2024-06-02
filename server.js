@@ -6,6 +6,7 @@ const pokeapiRoutes = require('./routes/pokeapi');
 const usersRoutes = require('./routes/users');
 const cardsRoutes = require('./routes/cards');
 const postsRoutes = require('./routes/posts');
+const cardImages = require('./routes/cardImages');
 const knex = require("knex")(require("./knexfile"));
 const jwt = require("jsonwebtoken")
 const bcrypt = require('bcrypt');
@@ -19,7 +20,8 @@ const jsonSecretKey = process.env.jsonSecretKey
 app.use('/', pokeapiRoutes);
 app.use('/users', usersRoutes);
 app.use('/cards', cardsRoutes);
-app.use('/posts', postsRoutes)
+app.use('/posts', postsRoutes);
+app.use('/cardimages', cardImages)
 
 app.use((req, res, next) => {
     if (req.url === "/signup" || req.url === "/login") {
