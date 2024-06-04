@@ -9,8 +9,8 @@ const FILE_PATH2 = "./data/cardImages2.json";
 const readStates = () => {
     const cardImagesFile = fs.readFileSync(FILE_PATH);
     const cardImages = JSON.parse(cardImagesFile);
-    const offset = Math.floor(Math.random() * (cardImages.length-10));
-    const paginatedData = cardImages.slice(offset, offset + 10);
+    const offset = Math.floor(Math.random() * (cardImages.length-14));
+    const paginatedData = cardImages.slice(offset, offset + 13);
     console.log(paginatedData)
     return paginatedData;
 }
@@ -18,8 +18,8 @@ const readStates = () => {
 const readStates2 = () => {
     const cardImagesFile2 = fs.readFileSync(FILE_PATH2);
     const cardImages2 = JSON.parse(cardImagesFile2);
-    const offset2 = Math.floor(Math.random() * (cardImages2.length-10));
-    const paginatedData2 = cardImages2.slice(offset2, offset2 + 10);
+    const offset2 = Math.floor(Math.random() * (cardImages2.length-12));
+    const paginatedData2 = cardImages2.slice(offset2, offset2 + 12);
     console.log(paginatedData2)
     return paginatedData2;
 }
