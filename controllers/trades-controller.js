@@ -190,6 +190,34 @@ const updateTradeRow = async (req, res) => {
     }
 };
 
+const deleteOffererTradeItem = async (req, res) => {
+
+    const { postids } = req.body;
+    const { id } = req.params;
+
+    console.log(postids)
+    console.log(id)
+
+    try {
+        const rowsDeleted = await knex("trade_items")
+            .where({
+                trade_id: id
+            })
+            .whereIn("user_card_id", postids)
+            .del();
+
+        if (rowsDeleted === 0) {
+            return res.status(404).json({ message: `Items are already not present` });
+        }
+        res.sendStatus(204);
+    } catch (error) {
+        res.status(500).json({
+            message: `Unable to delete items: ${error}`
+        });
+    }
+}
+
+
 
 module.exports = {
     createTradeAndTradeItem,
@@ -199,7 +227,8 @@ module.exports = {
     updateTradeRow,
     getOffTradesPostByUserId,
     getRecTradesPostByUserId,
-    createTradeItem
+    createTradeItem,
+    deleteOffererTradeItem
 };
 
 

@@ -4,17 +4,18 @@ const tradesController = require('../controllers/trades-controller');
 
 router
     .route('/')
-    .post(tradesController.createTradeAndTradeItem)
+    .post(tradesController.createTradeAndTradeItem);
 
 router
     .route('/:id')
     .get(tradesController.getSingleTradeById)
     .put(tradesController.updateTradeRow)
-    .post(tradesController.createTradeItem);
+    .post(tradesController.createTradeItem)
+    .delete(tradesController.deleteOffererTradeItem);
 
 router
     .route('/offering/:id')
-    .get(tradesController.getOffTradesByUserId)
+    .get(tradesController.getOffTradesByUserId);
 
 router
     .route('/offering/:id/posts')
@@ -22,7 +23,7 @@ router
 
 router
     .route('/receiving/:id')
-    .get(tradesController.getRecTradesByUserId)
+    .get(tradesController.getRecTradesByUserId);
 
 router
     .route('/receiving/:id/posts')
