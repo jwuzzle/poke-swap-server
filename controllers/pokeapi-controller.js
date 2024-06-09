@@ -23,7 +23,31 @@ const getExternalPokeapiDataByName = async (req, res) => {
     }
 }
 
+const getExternalPokeapiDataBySetName = async (req, res) => {
+    try {
+        console.log("Received request");
+        const { name } = req.query;
+        console.log("Name", name);
+        const data = await externalPokeapi.fetchPokeapiDataBySetName(name);
+        res.json(data)
+    } catch (error) {
+        console.error()
+    }
+}
+
+const getExternalPokeapiDataAllSets = async (req, res) => {
+    try {
+        console.log("Received request");
+        const data = await externalPokeapi.fetchPokeapiDataAllSets();
+        res.json(data)
+    } catch (error) {
+        console.error()
+    }
+}
+
 module.exports = {
     getExternalPokeapiData,
-    getExternalPokeapiDataByName
+    getExternalPokeapiDataByName,
+    getExternalPokeapiDataBySetName,
+    getExternalPokeapiDataAllSets
 };
