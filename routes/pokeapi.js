@@ -4,6 +4,9 @@ const pokeapiController = require('../controllers/pokeapi-controller');
 
 router
 .get('/all', pokeapiController.getExternalPokeapiData)
-.get('/', pokeapiController.getExternalPokeapiDataByName);
+.get('/', pokeapiController.getExternalPokeapiDataByName)
+.get('/set', pokeapiController.getExternalPokeapiDataBySetName)
+.get('/allsets', pokeapiController.getExternalPokeapiDataAllSets);
+
 
 module.exports = router;
